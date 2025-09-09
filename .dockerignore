@@ -1,9 +1,11 @@
-# Dependencies
-node_modules/
+# Node
+node_modules
 pnpm-store/
+dist
 
-# Build output
-dist/
+# Environment
+.env
+.env.local
 
 # Logs
 *.log
@@ -12,12 +14,16 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Environment
-.env
-.env.local
-
 # OS / IDE
 .DS_Store
+*.swp
 .idea/
 .vscode/
-*.swp
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
