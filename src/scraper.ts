@@ -1,18 +1,18 @@
-import puppeteer, { Browser } from "puppeteer";
+import puppeteer, { Browser, Page } from "puppeteer";
 import fs from "fs";
 import path from "path";
 
 // Save cookies to reuse sessions
 const COOKIE_PATH = path.join(process.cwd(), "cookies.json");
 
-async function loadCookies(page: puppeteer.Page) {
+async function loadCookies(page: Page) {
   if (fs.existsSync(COOKIE_PATH)) {
     const cookies = JSON.parse(fs.readFileSync(COOKIE_PATH, "utf-8"));
     await page.setCookie(...cookies);
   }
 }
 
-async function saveCookies(page: puppeteer.Page) {
+async function saveCookies(page: Page) {
   const cookies = await page.cookies();
   fs.writeFileSync(COOKIE_PATH, JSON.stringify(cookies, null, 2));
 }
@@ -46,7 +46,7 @@ export async function scrapeFacebookGroup(groupUrl: string) {
     // Scroll multiple times to load posts
     for (let i = 0; i < 5; i++) {
       await page.evaluate(() => window.scrollBy(0, window.innerHeight));
-      await page.waitForTimeout(2000);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     }
 
     // Extract posts
