@@ -1,10 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import { scrapeFacebookGroup } from "./scraper";
+import cors from "cors";
+
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 const SCRAPER_SECRET = process.env.SCRAPER_SECRET;
 
